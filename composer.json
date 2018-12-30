@@ -1,0 +1,23 @@
+{
+  "name": "huang-winner-snow/notation",
+  "description": "A PHP parser written in PHP",
+  "keywords": ["php", "notation"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "huangdongcheng"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "notation\\": "src"
+    }
+  },
+  "bin": ["bin/php-parse"],
+  "extra": {
+    "branch-alias": {
+      "dev-master": "4.1-dev"
+    }
+  }
+}

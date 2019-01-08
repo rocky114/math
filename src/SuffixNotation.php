@@ -6,6 +6,7 @@ use SplStack;
 
 class SuffixNotation
 {
+    public $expression;
     public $chars = [];
     public $operatorStack;
     public $resultStack;
@@ -13,15 +14,30 @@ class SuffixNotation
 
     public function __construct($expression = '1+((2+3)*4)-5')
     {
-        $this->operatorStack = new SplStack();
-        $this->resultStack = new SplStack();
-
-        $this->chars = preg_split('#([()+-/*])#i', $expression, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+        $this->setExpression($expression);
+        $this->setChars();
         $this->polishNotation();
+    }
+
+    public function setExpression($expression)
+    {
+        $this->expression = $expression;
+
+        return $this;
+    }
+
+    public function setChars()
+    {
+        $this->chars = preg_split('#([()+-/*])#i', $this->expression, -1, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
+
+        return $this;
     }
 
     public function polishNotation()
     {
+        $this->operatorStack = new SplStack();
+        $this->resultStack = new SplStack();
+
         foreach ($this->chars as $char) {
             if (is_numeric($char)) {
                 $this->resultStack->push($char);
@@ -71,6 +87,8 @@ class SuffixNotation
         }
 
         $this->suffixExpression = array_reverse($this->suffixExpression);
+
+        return $this;
     }
 
     public function priorityCompare($op1, $op2)
@@ -126,7 +144,3 @@ class SuffixNotation
         return 0;
     }
 }
-
-
-$result = (new SuffixNotation())->parseSuffixNotation();
-var_dump($result);

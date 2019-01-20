@@ -1,2 +1,2 @@
 # notation
-polish notation
+polish notation suffix expression

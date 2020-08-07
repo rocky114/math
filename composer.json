@@ -1,17 +1,22 @@
 {
-  "name": "huang-winner-snow/notation",
-  "description": "A PHP notation written in PHP",
-  "keywords": ["php", "notation"],
-  "type": "library",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "huangdongcheng"
+    "name": "rocky114/math",
+    "description": "the four fundamental operations of arithmetic",
+    "keywords": [
+        "php",
+        "arithmetic",
+        "notation"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "rocky",
+            "email": "934313141@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rocky114\\Math\\": "src"
+        }
     }
-  ],
-  "autoload": {
-    "psr-4": {
-      "notation\\": "src"
-    }
-  }
 }

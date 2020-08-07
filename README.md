@@ -1,2 +1,2 @@
-# notation
-polish notation suffix expression
+# Arithmetic
+the four fundamental operations of arithmetic

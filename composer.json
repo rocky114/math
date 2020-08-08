@@ -3,8 +3,9 @@
     "description": "the four fundamental operations of arithmetic",
     "keywords": [
         "php",
+        "math",
         "arithmetic",
-        "notation"
+        "expression"
     ],
     "type": "library",
     "license": "MIT",

@@ -7,7 +7,7 @@ use SplStack;
 class Arithmetic
 {
     public $chars = [];
-    public $notations;
+    public $symbols;
     public $expression = [];
 
     public function __construct($expression = '1+((2+3)*4)-5')
@@ -24,7 +24,7 @@ class Arithmetic
 
     public function getSuffixExpression()
     {
-        $this->notations = new SplStack();
+        $this->symbols = new SplStack();
 
         $length = count($this->chars) - 1;
 
@@ -32,23 +32,23 @@ class Arithmetic
             if (is_numeric($char)) {
                 $this->expression[] = $char;
                 if ($length === $index) {
-                    while (!$this->notations->isEmpty()) {
-                        $this->expression[] = $this->notations->pop();
+                    while (!$this->symbols->isEmpty()) {
+                        $this->expression[] = $this->symbols->pop();
                     }
                 }
 
                 continue;
             }
 
-            if ($this->notations->isEmpty() || '(' === $this->notations->top()) {
-                $this->notations->push($char);
+            if ($this->symbols->isEmpty() || '(' === $this->symbols->top()) {
+                $this->symbols->push($char);
 
                 continue;
             }
 
             if (')' === $char) {
                 while (true) {
-                    $popChar = $this->notations->pop();
+                    $popChar = $this->symbols->pop();
                     if ('(' === $popChar) {
                         break;
                     }
@@ -59,28 +59,28 @@ class Arithmetic
                 continue;
             }
 
-            if (1 === $this->compareNotationPriority($char, $this->notations->top())) {
-                $this->notations->push($char);
+            if (1 === $this->compareNotationPriority($char, $this->symbols->top())) {
+                $this->symbols->push($char);
 
                 continue;
             } else {
-                $this->expression[] = $this->notations->pop();
+                $this->expression[] = $this->symbols->pop();
 
                 do {
-                    if ($this->notations->isEmpty()) {
-                        $this->notations->push($char);
+                    if ($this->symbols->isEmpty()) {
+                        $this->symbols->push($char);
                         break;
                     }
 
-                    $popChar = $this->notations->pop();
+                    $popChar = $this->symbols->pop();
                     if ('(' === $popChar) {
-                        $this->notations->push($char);
+                        $this->symbols->push($char);
 
                         break;
                     }
 
                     if (1 === $this->compareNotationPriority($char, $popChar)) {
-                        $this->notations->push($char);
+                        $this->symbols->push($char);
 
                         break;
                     } else {
@@ -91,15 +91,15 @@ class Arithmetic
         }
     }
 
-    public function compareNotationPriority($op1, $op2)
+    public function compareNotationPriority($symbol1, $symbol2)
     {
-        switch ($op1) {
+        switch ($symbol1) {
             case '+':
             case '-':
-                return ($op2 === '*' || $op2 === '/' ? -1 : 0);
+                return ($symbol2 === '*' || $symbol2 === '/' ? -1 : 0);
             case '*':
             case '/':
-                return ($op2 === '+' || $op2 === '-' ? 1 : 0);
+                return ($symbol2 === '+' || $symbol2 === '-' ? 1 : 0);
         }
 
         return 1;
